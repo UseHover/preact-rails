@@ -4,6 +4,7 @@ var constructorFromRequireContextWithGlobalFallback = require("./src/getConstruc
 
 var PreactRailsUJS = {
   CLASS_NAME_ATTR: 'data-preact-class',
+  PROPS_ATTR: 'data-preact-props',
 
   findDOMNodes: function() {
     return document.querySelectorAll('['+PreactRailsUJS.CLASS_NAME_ATTR+']')
@@ -22,8 +23,9 @@ var PreactRailsUJS = {
       var node = nodes[i]
       var className = node.getAttribute(PreactRailsUJS.CLASS_NAME_ATTR)
       var constructor = PreactRailsUJS.getConstructor(className)
-
-      preact.render(preact.h(constructor), node)
+      var propsJson = node.getAttribute(PreactRailsUJS.PROPS_ATTR)
+      var props = propsJson && JSON.parse(propsJson)
+      preact.render(preact.h(constructor, props), node)
     }
   },
 

@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
+		module.exports = factory(require("preact"));
 	else if(typeof define === 'function' && define.amd)
-		define([], factory);
+		define(["preact"], factory);
 	else if(typeof exports === 'object')
-		exports["PreactRailsUJS"] = factory();
+		exports["PreactRailsUJS"] = factory(require("preact"));
 	else
-		root["PreactRailsUJS"] = factory();
-})(window, function() {
+		root["PreactRailsUJS"] = factory(root["Preact"]);
+})(window, function(__WEBPACK_EXTERNAL_MODULE_preact__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -103,7 +103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var constructorFromGlobal = __webpack_require__(/*! ./src/getConstructor/fromGlobal */ \"./src/getConstructor/fromGlobal.js\")\nvar constructorFromRequireContextWithGlobalFallback = __webpack_require__(/*! ./src/getConstructor/fromRequireContextWithGlobalFallback */ \"./src/getConstructor/fromRequireContextWithGlobalFallback.js\")\n\nvar PreactRailsUJS = {\n  CLASS_NAME_ATTR: 'data-preact-class',\n\n  findDOMNodes: function() {\n    return document.querySelectorAll('['+PreactRailsUJS.CLASS_NAME_ATTR+']')\n  },\n\n  getConstructor: constructorFromGlobal,\n\n  useContext: function(requireContext) {\n    this.getConstructor = constructorFromRequireContextWithGlobalFallback(requireContext)\n  },\n\n  mountComponents: function() {\n    console.log('mountcomponent loaded')\n    var nodes = PreactRailsUJS.findDOMNodes()\n    for (var i = 0; i < nodes.length; ++i) {\n      var node = nodes[i]\n      var className = node.getAttribute(PreactRailsUJS.CLASS_NAME_ATTR)\n      var constructor = PreactRailsUJS.getConstructor(className)\n\n      preact.render(preact.h(constructor), node)\n    }\n  },\n\n  handleEvent: function(eventName, callback) {\n    document.addEventListener(eventName, callback);\n  },\n\n  removeEvent: function(eventName, callback) {\n    document.removeEventListener(eventName, callback);\n  }\n\n}\n\nPreactRailsUJS.handleEvent('DOMContentLoaded', PreactRailsUJS.mountComponents)\n\nmodule.exports = PreactRailsUJS\n\n\n//# sourceURL=webpack://PreactRailsUJS/./index.js?");
+eval("var preact = __webpack_require__(/*! preact */ \"preact\")\nvar constructorFromGlobal = __webpack_require__(/*! ./src/getConstructor/fromGlobal */ \"./src/getConstructor/fromGlobal.js\")\nvar constructorFromRequireContextWithGlobalFallback = __webpack_require__(/*! ./src/getConstructor/fromRequireContextWithGlobalFallback */ \"./src/getConstructor/fromRequireContextWithGlobalFallback.js\")\n\nvar PreactRailsUJS = {\n  CLASS_NAME_ATTR: 'data-preact-class',\n  PROPS_ATTR: 'data-preact-props',\n\n  findDOMNodes: function() {\n    return document.querySelectorAll('['+PreactRailsUJS.CLASS_NAME_ATTR+']')\n  },\n\n  getConstructor: constructorFromGlobal,\n\n  useContext: function(requireContext) {\n    this.getConstructor = constructorFromRequireContextWithGlobalFallback(requireContext)\n  },\n\n  mountComponents: function() {\n    console.log('mountcomponent loaded')\n    var nodes = PreactRailsUJS.findDOMNodes()\n    for (var i = 0; i < nodes.length; ++i) {\n      var node = nodes[i]\n      var className = node.getAttribute(PreactRailsUJS.CLASS_NAME_ATTR)\n      var constructor = PreactRailsUJS.getConstructor(className)\n      var propsJson = node.getAttribute(PreactRailsUJS.PROPS_ATTR)\n      var props = propsJson && JSON.parse(propsJson)\n      preact.render(preact.h(constructor, props), node)\n    }\n  },\n\n  handleEvent: function(eventName, callback) {\n    document.addEventListener(eventName, callback);\n  },\n\n  removeEvent: function(eventName, callback) {\n    document.removeEventListener(eventName, callback);\n  }\n\n}\n\nPreactRailsUJS.handleEvent('DOMContentLoaded', PreactRailsUJS.mountComponents)\n\nmodule.exports = PreactRailsUJS\n\n\n//# sourceURL=webpack://PreactRailsUJS/./index.js?");
 
 /***/ }),
 
@@ -137,6 +137,17 @@ eval("// Load React components by requiring them from \"components/\", for examp
 /***/ (function(module, exports, __webpack_require__) {
 
 eval("// Make a function which:\n// - First tries to require the name\n// - Then falls back to global lookup\nvar fromGlobal = __webpack_require__(/*! ./fromGlobal */ \"./src/getConstructor/fromGlobal.js\")\nvar fromRequireContext = __webpack_require__(/*! ./fromRequireContext */ \"./src/getConstructor/fromRequireContext.js\")\n\nmodule.exports = function(reqctx) {\n  var fromCtx = fromRequireContext(reqctx)\n  return function(className) {\n    var component;\n    try {\n      // `require` will raise an error if this className isn't found:\n      component = fromCtx(className)\n    } catch (firstErr) {\n      // fallback to global:\n      try {\n        component = fromGlobal(className)\n      } catch (secondErr) {\n        console.error(firstErr)\n        console.error(secondErr)\n      }\n    }\n    return component\n  }\n}\n\n\n//# sourceURL=webpack://PreactRailsUJS/./src/getConstructor/fromRequireContextWithGlobalFallback.js?");
+
+/***/ }),
+
+/***/ "preact":
+/*!******************************************************************************************!*\
+  !*** external {"root":"Preact","commonjs2":"preact","commonjs":"preact","amd":"preact"} ***!
+  \******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = __WEBPACK_EXTERNAL_MODULE_preact__;\n\n//# sourceURL=webpack://PreactRailsUJS/external_%7B%22root%22:%22Preact%22,%22commonjs2%22:%22preact%22,%22commonjs%22:%22preact%22,%22amd%22:%22preact%22%7D?");
 
 /***/ })
 
