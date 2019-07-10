@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'preact-rails'
-  s.version     = '0.1.0'
+  s.version     = '0.1.1'
   s.date        = '2019-05-27'
   s.summary     = "Preact integration for Ruby on Rails"
   s.description = "Render preact components in views or controller actions."
