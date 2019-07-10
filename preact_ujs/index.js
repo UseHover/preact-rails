@@ -1,4 +1,4 @@
-//var preact = require("preact")
+var preact = require("preact")
 var constructorFromGlobal = require("./src/getConstructor/fromGlobal")
 var constructorFromRequireContextWithGlobalFallback = require("./src/getConstructor/fromRequireContextWithGlobalFallback")
 
