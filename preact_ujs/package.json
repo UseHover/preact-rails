@@ -7,6 +7,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "preact": "^8.4.2",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2"
   }

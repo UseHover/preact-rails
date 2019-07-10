@@ -1,4 +1,4 @@
-var preact = require("preact")
+//var preact = require("preact")
 var constructorFromGlobal = require("./src/getConstructor/fromGlobal")
 var constructorFromRequireContextWithGlobalFallback = require("./src/getConstructor/fromRequireContextWithGlobalFallback")
 
@@ -17,15 +17,21 @@ var PreactRailsUJS = {
   },
 
   mountComponents: function() {
-    console.log('mountcomponent loaded')
     var nodes = PreactRailsUJS.findDOMNodes()
     for (var i = 0; i < nodes.length; ++i) {
       var node = nodes[i]
+      PreactRailsUJS.clearChildNodes(node)
       var className = node.getAttribute(PreactRailsUJS.CLASS_NAME_ATTR)
       var constructor = PreactRailsUJS.getConstructor(className)
       var propsJson = node.getAttribute(PreactRailsUJS.PROPS_ATTR)
       var props = propsJson && JSON.parse(propsJson)
       preact.render(preact.h(constructor, props), node)
+    }
+  },
+
+  clearChildNodes: function(node) {
+    while (node.firstChild) {
+      node.removeChild(node.firstChild);
     }
   },
 
