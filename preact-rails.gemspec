@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
                    "lib/preact/view_helper.rb",
                    "lib/preact/railtie.rb"]
   s.homepage    =
-    'https://rubygems.org/gems/preact-rails'
+    'https://github.com/UseHover/preact-rails'
   s.license       = 'Apache-2.0'
 
   s.add_development_dependency 'rails', '>= 3.2'
