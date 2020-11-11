@@ -11,6 +11,17 @@ gem 'preact-rails'
 2. Install the gems by running `bundle install`
 3. Install Preact by running `yarn add preact`
 4. To transpile JSX, you need a Babel plugin that converts it to valid JavaScript code. Install [@babel/plugin-transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx#installation) by running `yarn add --dev @babel/plugin-transform-react-jsx`
+   Once installed, you need to specify the function for JSX that should be used. Your .babelrc/babel.config.js should include the following plugin description
+   ```json
+   {
+      "plugins": [
+         ["@babel/plugin-transform-react-jsx", {
+            "pragma": "h",
+            "pragmaFrag": "Fragment",
+         }]
+      ]
+   }
+   ``` 
 5. Install the Preact UJS driver by running `yarn add preact_ujs` or `npm i preact_ujs`
 6. Include your Preact components in your application.js
    Update `app/javascript/packs/application.js`, add the following lines:
