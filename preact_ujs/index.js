@@ -29,6 +29,14 @@ var PreactRailsUJS = {
     }
   },
 
+  unmountComponents: function(searchSelector) {
+    var nodes = PreactRailsUJS.findDOMNodes(searchSelector)
+    for (var i = 0; i < nodes.length; ++i) {
+      var node = nodes[i]
+      preact.render(null, node)
+    }
+  },
+
   clearChildNodes: function(node) {
     while (node.firstChild) {
       node.removeChild(node.firstChild);
